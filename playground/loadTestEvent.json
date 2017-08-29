@@ -1,0 +1,10 @@
+{
+  "iterations": 1,
+  "event": {
+    "options": {
+      "host": "http://it.vtc.edu.hk",
+      "path": "/",
+      "method": "GET"
+    }
+  }
+}

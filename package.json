@@ -1,0 +1,24 @@
+{
+  "name": "aws-triangle",
+  "version": "1.0.0",
+  "description": "AWS ELB, CloudWatch and AutoScaling triangle.",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "aws-xray-sdk": "^1.1.3"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.104.0",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-aws-lambda": "^0.13.0",
+    "grunt-pack": "^0.1.5"
+  },
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "keywords": [
+    "AWS"
+  ],
+  "author": "Cyrus Wong",
+  "license": "ISC"
+}

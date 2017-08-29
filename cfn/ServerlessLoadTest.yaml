@@ -1,0 +1,89 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Serverless Load Test Bot
+Parameters:
+    BucketName:
+        Type: String
+        Default: cf-templates-108zly0brnkmt-us-east-1
+Resources:
+    LoadTestLex:
+        Type: AWS::Serverless::Function
+        Properties:
+            Handler: loadBot.handler
+            Runtime: nodejs6.10
+            MemorySize: 128
+            Timeout: 30
+            Tracing: Active
+            Policies:
+              - AWSLambdaExecute
+              - AWSXrayWriteOnlyAccess
+              - Version: '2012-10-17'
+                Statement:
+                  - Effect: Allow
+                    Action:
+                      - lambda:InvokeFunction
+                    Resource:
+                      Fn::GetAtt:
+                        - LoadTest
+                        - Arn
+            Environment:
+              Variables:
+                LoadTestFunction: !Ref LoadTest
+                SendRequestFunction: !Ref SendRequest
+            CodeUri:
+                Bucket: !Ref BucketName
+                Key: aws-triangle_1-0-0_latest.zip
+
+    LoadTestLexLambdaInvokePermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        FunctionName:
+          Fn::GetAtt:
+            - LoadTestLex
+            - Arn
+        Action: lambda:InvokeFunction
+        Principal: lex.amazonaws.com
+        SourceAccount:
+          Ref: AWS::AccountId
+
+    LoadTest:
+        Type: AWS::Serverless::Function
+        Properties:
+            Handler: loadTest.handler
+            Runtime: nodejs6.10
+            MemorySize: 128
+            Timeout: 60
+            Tracing: Active
+            Policies:
+              - AWSLambdaExecute
+              - AWSXrayWriteOnlyAccess
+              - Version: '2012-10-17'
+                Statement:
+                  - Effect: Allow
+                    Action:
+                      - lambda:InvokeFunction
+                    Resource:
+                      Fn::GetAtt:
+                        - SendRequest
+                        - Arn
+            Environment:
+              Variables:
+                SendRequestFunction: !Ref SendRequest
+            CodeUri:
+                Bucket: !Ref BucketName
+                Key: aws-triangle_1-0-0_latest.zip
+
+    SendRequest:
+        Type: AWS::Serverless::Function
+        Properties:
+            Handler: sendRequest.handler
+            Runtime: nodejs6.10
+            MemorySize: 128
+            Timeout: 30
+            Tracing: Active
+            Policies:
+              - AWSLambdaExecute
+              - AWSXrayWriteOnlyAccess
+            CodeUri:
+                Bucket: !Ref BucketName
+                Key: aws-triangle_1-0-0_latest.zip
