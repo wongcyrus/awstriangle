@@ -339,7 +339,7 @@ Resources:
        - !Ref WebPrivateSubnet2
       LaunchConfigurationName:
         Ref: WebLaunchConfig
-      DesiredCapacity: 1
+      DesiredCapacity: 2
       MinSize: 1
       MaxSize: 6
       TargetGroupARNs:

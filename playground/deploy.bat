@@ -1,0 +1,1 @@
+aws s3 cp "E:\Working\AWS Triangle\dist\aws-triangle_1-0-0_latest.zip" s3://cf-templates-108zly0brnkmt-us-east-1/ --region=us-east-1

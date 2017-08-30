@@ -1,8 +1,8 @@
 {
-  "iterations": 1,
+  "iterations": 20,
   "event": {
     "options": {
-      "host": "http://it.vtc.edu.hk",
+      "host": "it.vtc.edu.hk",
       "path": "/",
       "method": "GET"
     }
