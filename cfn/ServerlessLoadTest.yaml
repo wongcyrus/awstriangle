@@ -171,7 +171,8 @@ Resources:
 
     BasicApplicationOutputs:
       Type: "AWS::KinesisAnalytics::ApplicationOutput"
-      DependsOn: BasicApplication
+      DependsOn:
+        - BasicApplication
       Properties:
         ApplicationName: !Ref BasicApplication
         Output:
@@ -181,6 +182,13 @@ Resources:
           KinesisStreamsOutput:
             ResourceARN: !GetAtt OutputKinesisStream.Arn
             RoleARN: !GetAtt KinesisAnalyticsRole.Arn
+#          KinesisFirehoseOutput:
+#            ResourceARN: !Sub |
+#              - arn:aws:firehose:${AWS::Region}:${AWS::AccountId}:deliverystream/${deliveryStreamName}
+#              - {
+#                  deliveryStreamName: !Ref deliverystream
+#                }
+#            RoleARN: !GetAtt deliveryRole.Arn
 
     OutputKinesisStream:
       Type: "AWS::Kinesis::Stream"
