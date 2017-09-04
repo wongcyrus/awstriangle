@@ -340,7 +340,7 @@ Resources:
       LaunchConfigurationName:
         Ref: WebLaunchConfig
       DesiredCapacity: 2
-      MinSize: 1
+      MinSize: 2
       MaxSize: 6
       TargetGroupARNs:
         -
